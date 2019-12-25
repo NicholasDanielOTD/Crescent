@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutowalkerController : MonoBehaviour
+public class AutowalkerController : Enemy
 {
-	
-	public float speed;
-	private Rigidbody2D rb;
-	public float detectionRadius;
-	
-	public LayerMask whatIsPlayer;
-	
 	
     // Start is called before the first frame update
     void Start()
@@ -18,17 +11,28 @@ public class AutowalkerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 		rb.velocity = new Vector2(speed, rb.velocity.y);
     }
-
-    // Update is called once per frame
-    void Update()
+	
+	void Update()
     {
+        if(hp <= 0){
+			Debug.Log("Calling death");
+			Death();
+		}
+		
+		//Enemy detectoin, if too close then stop moving
 		if(Physics2D.OverlapCircleAll(rb.position, detectionRadius, whatIsPlayer).Length == 0){
 			
 			rb.velocity = new Vector2(speed, rb.velocity.y);
 		}
 		else
 		{
-			Debug.Log("Player detected!");
+			//Debug.Log("Player detected!");
 		}
     }
+
+	
+	public override void Death()
+	{
+		Debug.Log("Died in override");
+	}
 }

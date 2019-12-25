@@ -23,15 +23,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//If can attack
         if(timeBtwAttack <= 0){
-			
 			if(Input.GetKey(KeyCode.LeftShift)){
 				Debug.Log("Attacked!");
 				timeBtwAttack = startTimeBtwAttack;
+				//Check hittable enemies in a circle around player
 				Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+				//For each enemy, do damage
 				for(int i = 0; i < enemiesToDamage.Length; i++){
-					Debug.Log("Got autowalker component");
-					enemiesToDamage[i].GetComponent<Autowalker>().TakeDamage(strength);
+					enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(strength);
 				}
 			}
 			
@@ -42,12 +43,9 @@ public class Player : MonoBehaviour
 			timeBtwAttack -= Time.deltaTime;
 		}
     }
+	  
 	
-	void Attack(){
-		
-	}
-	
-	
+	//This is used to see a red circle around gizmos when drawing them in Unity scene editor
 	void OnDrawGizmosSelected(){
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(attackPos.position, attackRange);
