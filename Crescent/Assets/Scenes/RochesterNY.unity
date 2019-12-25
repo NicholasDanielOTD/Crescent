@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 493300066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 878724416}
   - component: {fileID: 878724415}
   - component: {fileID: 878724414}
-  m_Layer: 8
+  m_Layer: 25
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 1201123144}
   - component: {fileID: 1201123143}
   - component: {fileID: 1201123148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,8 +591,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 9.364269
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3.5
@@ -619,7 +619,7 @@ MonoBehaviour:
   checkRadius: 0.3
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 33554432
 --- !u!212 &1201123146
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -714,10 +714,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1528380753}
   - component: {fileID: 1528380752}
-  - component: {fileID: 1528380751}
   - component: {fileID: 1528380750}
   - component: {fileID: 1528380755}
   - component: {fileID: 1528380754}
+  - component: {fileID: 1528380751}
   m_Layer: 9
   m_Name: Badguy
   m_TagString: Untagged
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4031d148e92c14abdc25311460164e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
+  hp: 100
 --- !u!114 &1528380751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78698851cb1380141a83447940ad65a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -2
+  speed: -2.32
+  detectionRadius: 5
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!212 &1528380752
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -914,7 +918,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1990499855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
