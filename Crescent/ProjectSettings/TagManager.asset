@@ -15,8 +15,8 @@ TagManager:
   - 
   - PlayerLayer
   - Enemies
-  - 
-  - 
+  - Hurtbox
+  - Hitbox
   - 
   - 
   - 

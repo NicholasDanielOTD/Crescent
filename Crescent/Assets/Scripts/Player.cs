@@ -13,11 +13,17 @@ public class Player : MonoBehaviour
 	public Transform attackPos;
 	public float attackRange;
 	public LayerMask whatIsEnemies;
+	public PolygonCollider2D weapon;
+	
+	public ContactFilter2D filter;
+	public Collider2D[] enemiesToDamage;
 	
     // Start is called before the first frame update
     void Start()
     {
+		weapon = GetComponent<PolygonCollider2D>();
         strength = 50;
+		filter.layerMask = whatIsEnemies;
     }
 
     // Update is called once per frame
@@ -26,17 +32,8 @@ public class Player : MonoBehaviour
 		//If can attack
         if(timeBtwAttack <= 0){
 			if(Input.GetKey(KeyCode.LeftShift)){
-				Debug.Log("Attacked!");
-				timeBtwAttack = startTimeBtwAttack;
-				//Check hittable enemies in a circle around player
-				Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-				//For each enemy, do damage
-				for(int i = 0; i < enemiesToDamage.Length; i++){
-					enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(strength);
-				}
+				Attack();
 			}
-			
-			
 		}
 		else
 		{
@@ -44,6 +41,18 @@ public class Player : MonoBehaviour
 		}
     }
 	  
+	  
+	void Attack(){
+		Debug.Log("Attacked!");
+		//Reset timer between attacks
+		timeBtwAttack = startTimeBtwAttack;
+		//Check hittable enemies in a circle around player
+		weapon.OverlapCollider(filter,enemiesToDamage);
+		//For each enemy, do damage
+		for(int i = 0; i < enemiesToDamage.Length; i++){
+			enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(strength);
+		}
+	}
 	
 	//This is used to see a red circle around gizmos when drawing them in Unity scene editor
 	void OnDrawGizmosSelected(){
