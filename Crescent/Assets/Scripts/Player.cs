@@ -42,11 +42,16 @@ public class Player : MonoBehaviour, IHitboxResponder
 			timeBtwAttack -= Time.deltaTime;
 		}
 		
-		if(!inAnimation){
-			hitbox.stopCheckingCollision();
-		}
+		
     }
 	  
+	  
+	void FixedUpdate(){
+		
+		if(hitbox.isStateOpen()){
+			hitbox.hitboxUpdate();
+		}
+	}
 	  
 /*	void Attack(){
 		Debug.Log("Attacked!");
@@ -68,8 +73,8 @@ public class Player : MonoBehaviour, IHitboxResponder
 		Debug.Log("stabbing!");
 	}
 	
-	public void collisionedWith(Collider collider){
-		//collider[i] .takedamage
+	public void collisionedWith(Collider2D collider){
+		Debug.Log("collided!");
 	}
 	
 	//This is used to see a red circle around gizmos when drawing them in Unity scene editor

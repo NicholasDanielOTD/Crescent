@@ -4,7 +4,7 @@ using UnityEngine;
 
 //This interface allows for the inclusion of the collisionedWith void into other classes
 public interface IHitboxResponder {
-		void collisionedWith(Collider collider);
+		void collisionedWith(Collider2D collider);
 	}
 
 
@@ -15,7 +15,7 @@ public class Hitbox : MonoBehaviour
 	
 	public Vector3 boxSize;
 	public float rotation;
-	public LayerMask mask;
+	public LayerMask hurtboxMask;
 	public Color inactiveColor;
 	public Color collisionOpenColor;
 	public Color collidingColor;
@@ -79,21 +79,26 @@ public class Hitbox : MonoBehaviour
 		_state = ColliderState.Closed;
 	}
 	
+	public bool isStateOpen(){
+		return _state == ColliderState.Open;
+	}
 	
 
     // Update is called once per frame
-    void hitboxUpdate()
+    public void hitboxUpdate()
     {
+		//Debug.Log("Updating");
 		//If no hitbox out, do nothing
         if (_state == ColliderState.Closed) {return;}
 		
 		//Get list of colliding entities
-		Collider[] colliders = Physics.OverlapBox(transform.position,boxSize,transform.rotation,mask);
-		
+		Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position,new Vector2 (boxSize.x,boxSize.y),0,hurtboxMask);
+		Debug.Log("test");
+		Debug.Log(colliders.Length);
 		//For each collision, if it has a responder, report that the collision has happened
 		for (int i = 0; i < colliders.Length; i++)
 		{
-			Collider aCollider = colliders[i];
+			Collider2D aCollider = colliders[i];
 			_responder?.collisionedWith(aCollider);
 		}
 		

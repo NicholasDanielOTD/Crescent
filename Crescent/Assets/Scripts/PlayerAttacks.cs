@@ -15,7 +15,7 @@ public class PlayerAttacks : IHitboxResponder
 		Debug.Log("stabbing!");
 	}
 	
-	public void collisionedWith(Collider collider){
+	public void collisionedWith(Collider2D collider){
 		//collider[i] .takedamage
 	}
 }
