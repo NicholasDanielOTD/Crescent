@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
 	public float detectionRadius;
 	public List<int> hitlist;
 	
+	public bool dead = false;
+	
 	public LayerMask whatIsPlayer;
 	
 	

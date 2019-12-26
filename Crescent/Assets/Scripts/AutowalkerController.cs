@@ -14,8 +14,7 @@ public class AutowalkerController : Enemy
 	
 	void Update()
     {
-        if(hp <= 0){
-			Debug.Log("Calling death");
+        if(hp <= 0 && !dead){
 			Death();
 		}
 		
@@ -33,6 +32,7 @@ public class AutowalkerController : Enemy
 	
 	public override void Death()
 	{
+		dead = true;
 		Debug.Log("Died in override");
 	}
 }

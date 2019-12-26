@@ -13,7 +13,7 @@ public class Hitbox : MonoBehaviour
 {
 	//This creates the responder
 	private IHitboxResponder _responder = null;
-	private string attackname;
+	public string attackname;
 	private int attackID;
 	public Vector3 boxSize;
 	public float rotation;

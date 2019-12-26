@@ -11,7 +11,7 @@ public class Player : MonoBehaviour, IHitboxResponder
 	public float startTimeBtwAttack;
 	public bool inAnimation;
 	public float strength;
-
+	private Dictionary<string, int> attackdict;
 	public float attackRange;
 	public LayerMask whatIsEnemies;
 	
@@ -22,7 +22,9 @@ public class Player : MonoBehaviour, IHitboxResponder
     // Start is called before the first frame update
     void Start()
     {
-        strength = 50;
+		attackdict = new Dictionary<string, int>();
+		attackdict.Add("stab",50);
+		attackdict.Add("swipe",30);
 		filter.layerMask = whatIsEnemies;
 		
     }
@@ -86,7 +88,8 @@ public class Player : MonoBehaviour, IHitboxResponder
 	
 	
 	public void collisionedWith(Collider2D collider, int attackid){
-		collider.GetComponentInParent<Enemy>().TakeDamage(50, attackid);
+		strength = attackdict[hitbox.attackname];
+		collider.GetComponentInParent<Enemy>().TakeDamage(strength, attackid);
 	}
 	
 	//This is used to see a red circle around gizmos when drawing them in Unity scene editor
