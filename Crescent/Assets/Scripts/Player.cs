@@ -6,17 +6,15 @@ public class Player : MonoBehaviour, IHitboxResponder
 {
 	
 	public Hitbox hitbox;
-	
+	public float hp;
+	private bool dead;
 	private double timeBtwAttack;
 	public float startTimeBtwAttack;
 	public bool inAnimation;
 	public float strength;
 	private Dictionary<string, int> attackdict;
-	public float attackRange;
 	public LayerMask whatIsEnemies;
-	
-	public ContactFilter2D filter;
-	public Collider2D[] enemiesToDamage;
+	public List<int> hitlist;
 	
 	
     // Start is called before the first frame update
@@ -25,13 +23,16 @@ public class Player : MonoBehaviour, IHitboxResponder
 		attackdict = new Dictionary<string, int>();
 		attackdict.Add("stab",50);
 		attackdict.Add("swipe",30);
-		filter.layerMask = whatIsEnemies;
 		
     }
 
     // Update is called once per frame
     void Update()
     {
+		if(hp <= 0 && !dead){
+			Death();
+		}
+
 		//If can attack
         if(timeBtwAttack <= 0){
 			if(Input.GetKey(KeyCode.LeftShift)){
@@ -54,6 +55,12 @@ public class Player : MonoBehaviour, IHitboxResponder
 		
     }
 	  
+	public void TakeDamage(float damage, int attackid)
+	{
+		if(!hitlist.Contains(attackid)){ hp -= damage; hitlist.Add(attackid); 
+		Debug.Log("Took damage! Hp is now: " + hp);
+		}
+	}
 	  
 	void FixedUpdate(){
 		
@@ -64,9 +71,7 @@ public class Player : MonoBehaviour, IHitboxResponder
 	  
 	
 	public void stab(){
-		Debug.Log(transform.Find("stabbox"));
 		hitbox = transform.Find("stabbox").GetComponent<Hitbox>();
-		
 		timeBtwAttack = .3;
 		hitbox.useResponder(this);
 		hitbox.startCheckingCollision();
@@ -84,6 +89,12 @@ public class Player : MonoBehaviour, IHitboxResponder
 		inAnimation = true;
 		Debug.Log("swiping!");
 		
+	}
+	
+	public void Death()
+	{
+		Debug.Log("You died");
+		dead = true;
 	}
 	
 	

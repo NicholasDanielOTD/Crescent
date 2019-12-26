@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+	public Hitbox hitbox;
 	public float hp;
-	
+	public float strength;
+	public float attackRadius;
 	public float speed;
 	public Rigidbody2D rb;
 	public float detectionRadius;
 	public List<int> hitlist;
-	
-	public bool dead = false;
-	
 	public LayerMask whatIsPlayer;
+	public bool dead = false;
+	public Dictionary<string, int> attackdict;
+	public bool inAnimation;
+	public double startTimeBtwAttack;
+	public double timeBtwAttack;
 	
 	
 	public void TakeDamage(float damage, int attackid)
@@ -26,6 +30,27 @@ public class Enemy : MonoBehaviour
 	public void clearHitlist()
 	{
 		hitlist.Clear();
+	}
+	
+	public bool detectPlayer()
+	{
+		if(Physics2D.OverlapCircleAll(rb.position, detectionRadius, whatIsPlayer).Length > 0){
+			return true;
+		}
+		return false;
+	}
+	
+	public bool canAttack()
+	{
+		if(Physics2D.OverlapCircleAll(rb.position, attackRadius, whatIsPlayer).Length > 0 && !inAnimation){
+			return true;
+		}
+		return false;
+	}
+	
+	public void collisionedWith(Collider2D collider, int attackid){
+		strength = attackdict[hitbox.attackname];
+		collider.GetComponentInParent<Player>().TakeDamage(strength, attackid);
 	}
 	
 	
