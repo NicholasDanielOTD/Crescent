@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script intended to define what a hitbox is for more robust use of hitboxes
+
 //This interface allows for the inclusion of the collisionedWith void into other classes
 public interface IHitboxResponder {
 		void collisionedWith(Collider2D collider, int attackid);
-//		void attackID(int ID);
 	}
 
 
@@ -13,6 +14,7 @@ public class Hitbox : MonoBehaviour
 {
 	//This creates the responder
 	private IHitboxResponder _responder = null;
+	
 	public string attackname;
 	private int attackID;
 	public Vector3 boxSize;
@@ -21,9 +23,9 @@ public class Hitbox : MonoBehaviour
 	public Color inactiveColor;
 	public Color collisionOpenColor;
 	public Color collidingColor;
-
+	public double hitDelay;
 	
-	
+	//A state for describing what our collider is doing at the moment
 	private ColliderState _state;
 	
 	//Adds a ColliderState type with several possible states
@@ -46,7 +48,7 @@ public class Hitbox : MonoBehaviour
 	}
 	
 	
-	//Sets the hitbox color based on state
+	//Sets the hitbox color based on state, currently does not work because gizmos aren't properly configured
 	private void CheckGizmoColor()
 	{
 		switch(_state) {
@@ -72,7 +74,7 @@ public class Hitbox : MonoBehaviour
 	}
 
 	
-	//Turn on and off collision checking when hitbox is out
+	//Turn on and off collision checking when hitbox is out, assign an attackid when a hitbox opens
 	public void startCheckingCollision()
 	{
 		_state = ColliderState.Open;
@@ -84,6 +86,7 @@ public class Hitbox : MonoBehaviour
 		_state = ColliderState.Closed;
 	}
 	
+	//a callable check to see if colliding is okay
 	public bool isStateOpen(){
 		return _state == ColliderState.Open || _state == ColliderState.Colliding;
 	}
@@ -94,7 +97,7 @@ public class Hitbox : MonoBehaviour
     {
 		//Debug.Log("Updating");
 		//If no hitbox out, do nothing
-        if (_state == ColliderState.Closed) {return;}
+        if (_state == ColliderState.Closed || hitDelay > 0) { hitDelay -= Time.deltaTime; return;}
 		
 		//Get list of colliding entities
 		Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position,new Vector2 (boxSize.x,boxSize.y),0,hurtboxMask);

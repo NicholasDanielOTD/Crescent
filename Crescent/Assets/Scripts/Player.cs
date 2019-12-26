@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This script handles all of the 'moves' and 'attacks' a player should have
+
 public class Player : MonoBehaviour, IHitboxResponder
 {
 	
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour, IHitboxResponder
     // Start is called before the first frame update
     void Start()
     {
+		//Initializes attacks and their strength
 		attackdict = new Dictionary<string, int>();
 		attackdict.Add("stab",50);
 		attackdict.Add("swipe",30);
@@ -33,8 +36,8 @@ public class Player : MonoBehaviour, IHitboxResponder
 			Death();
 		}
 
-		//If can attack
-        if(timeBtwAttack <= 0){
+		//If can attack, allow attack inputs
+        if(timeBtwAttack <= 0 && !inAnimation){
 			if(Input.GetKey(KeyCode.LeftShift)){
 				stab();
 			}
@@ -42,11 +45,11 @@ public class Player : MonoBehaviour, IHitboxResponder
 				swipe();
 			}
 		}
-		else
+		else //decrease time
 		{
 			timeBtwAttack -= Time.deltaTime;
 		}
-		
+		//If the attack is over, turn off collision detection and set inAnimation
 		if(timeBtwAttack < 0)
 		{
 			hitbox?.stopCheckingCollision();
@@ -57,21 +60,24 @@ public class Player : MonoBehaviour, IHitboxResponder
 	  
 	public void TakeDamage(float damage, int attackid)
 	{
+		//Verify this attack has not already hit the enemy, if not take the damage and add the attackid.
 		if(!hitlist.Contains(attackid)){ hp -= damage; hitlist.Add(attackid); 
 		Debug.Log("Took damage! Hp is now: " + hp);
 		}
 	}
 	  
 	void FixedUpdate(){
-		
+		//If we are attacking, call hitboxUpdate to check for hits
 		if(inAnimation && hitbox.isStateOpen()){
 			hitbox.hitboxUpdate();
 		}
 	}
 	  
+	//Attacks below create an instance of the attack hitbox, initialize attack vars, then enable collision
 	
 	public void stab(){
 		hitbox = transform.Find("stabbox").GetComponent<Hitbox>();
+		hitbox.hitDelay = .1;
 		timeBtwAttack = .3;
 		hitbox.useResponder(this);
 		hitbox.startCheckingCollision();
@@ -97,8 +103,8 @@ public class Player : MonoBehaviour, IHitboxResponder
 		dead = true;
 	}
 	
-	
 	public void collisionedWith(Collider2D collider, int attackid){
+		//Called when a hitbox lands on the enemy, finds the damage that needs to be dealt and deals it
 		strength = attackdict[hitbox.attackname];
 		collider.GetComponentInParent<Enemy>().TakeDamage(strength, attackid);
 	}

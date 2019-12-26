@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This class is the parent class for all enemies and holds standard vars and functions
+
 public class Enemy : MonoBehaviour
 {
 	public Hitbox hitbox;
@@ -22,6 +24,7 @@ public class Enemy : MonoBehaviour
 	
 	public void TakeDamage(float damage, int attackid)
 	{
+		//Verify this attack has not already hit the enemy, if not take the damage and add the attackid.
 		if(!hitlist.Contains(attackid)){ hp -= damage; hitlist.Add(attackid); 
 		Debug.Log("Took damage! Hp is now: " + hp);
 		}
@@ -34,6 +37,7 @@ public class Enemy : MonoBehaviour
 	
 	public bool detectPlayer()
 	{
+		//Check if player is in specified detection radius
 		if(Physics2D.OverlapCircleAll(rb.position, detectionRadius, whatIsPlayer).Length > 0){
 			return true;
 		}
@@ -42,6 +46,7 @@ public class Enemy : MonoBehaviour
 	
 	public bool canAttack()
 	{
+		//Check if player is within specified attack radius
 		if(Physics2D.OverlapCircleAll(rb.position, attackRadius, whatIsPlayer).Length > 0 && !inAnimation){
 			return true;
 		}
@@ -49,6 +54,7 @@ public class Enemy : MonoBehaviour
 	}
 	
 	public void collisionedWith(Collider2D collider, int attackid){
+		//Called when a hitbox lands on the enemy, finds the damage that needs to be dealt and deals it
 		strength = attackdict[hitbox.attackname];
 		collider.GetComponentInParent<Player>().TakeDamage(strength, attackid);
 	}
