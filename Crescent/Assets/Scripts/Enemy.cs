@@ -9,20 +9,20 @@ public class Enemy : MonoBehaviour
 	public float speed;
 	public Rigidbody2D rb;
 	public float detectionRadius;
+	public List<int> hitlist;
 	
 	public LayerMask whatIsPlayer;
 	
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
 	
-	public void TakeDamage(float damage)
+	public void TakeDamage(float damage, int attackid)
 	{
-		hp -= damage;
+		if(!hitlist.Contains(attackid)){ hp -= damage; hitlist.Add(attackid); }
 		Debug.Log("Took damage! Hp is now: " + hp);
+	}
+	
+	public void clearHitlist()
+	{
+		hitlist.Clear();
 	}
 	
 	

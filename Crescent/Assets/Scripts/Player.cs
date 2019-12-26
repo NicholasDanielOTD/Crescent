@@ -11,13 +11,13 @@ public class Player : MonoBehaviour, IHitboxResponder
 	public float startTimeBtwAttack;
 	public bool inAnimation;
 	public float strength;
-	
-//	public Transform attackPos;
+
 	public float attackRange;
 	public LayerMask whatIsEnemies;
 	
 	public ContactFilter2D filter;
 	public Collider2D[] enemiesToDamage;
+	
 	
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour, IHitboxResponder
     void Update()
     {
 		//If can attack
-        if(timeBtwAttack <= 0){
+        if(timeBtwAttack <= 0 && !hitbox.isStateOpen()){
 			if(Input.GetKey(KeyCode.LeftShift)){
 				stab();
 			}
@@ -53,28 +53,19 @@ public class Player : MonoBehaviour, IHitboxResponder
 		}
 	}
 	  
-/*	void Attack(){
-		Debug.Log("Attacked!");
-		//Reset timer between attacks
-		timeBtwAttack = startTimeBtwAttack;
-		//Check hittable enemies in a circle around player
-		
-		//For each enemy, do damage
-		for(int i = 0; i < enemiesToDamage.Length; i++){
-			enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(strength);
-		}
-	}*/
 	
 	public void stab(){
 		timeBtwAttack = startTimeBtwAttack;
 		hitbox.useResponder(this);
 		hitbox.startCheckingCollision();
+		hitbox.name = "stab";
 		inAnimation = true;
 		Debug.Log("stabbing!");
 	}
 	
-	public void collisionedWith(Collider2D collider){
+	public void collisionedWith(Collider2D collider, int attackid){
 		Debug.Log("collided!");
+		collider.GetComponentInParent<Enemy>().TakeDamage(50, attackid);
 	}
 	
 	//This is used to see a red circle around gizmos when drawing them in Unity scene editor

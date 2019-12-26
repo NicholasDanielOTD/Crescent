@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360008372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.79, y: 0.01, z: 0}
+  m_LocalPosition: {x: 1.26, y: 0.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1201123147}
@@ -163,11 +163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a483e0bff1e0132458a81ea46705bb5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxSize: {x: 50, y: 50, z: 50}
+  boxSize: {x: 3.54, y: 0.92, z: 0}
   rotation: 0
   hurtboxMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1024
   inactiveColor: {r: 0.8396226, g: 0.122774996, b: 0.122774996, a: 0}
   collisionOpenColor: {r: 0.2807772, g: 0.990566, b: 0.2476415, a: 0}
   collidingColor: {r: 0.16237983, g: 0.36339107, b: 0.8396226, a: 0}
@@ -728,7 +728,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201123142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.63, y: 0.04, z: 0}
+  m_LocalPosition: {x: -7.14, y: 0.06, z: 0}
   m_LocalScale: {x: 1.873044, y: 1.7299881, z: 1}
   m_Children:
   - {fileID: 493300066}
@@ -867,7 +867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528380749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.04, y: 0.28, z: -2.25795}
+  m_LocalPosition: {x: 5.92, y: 0.83, z: -2.25795}
   m_LocalScale: {x: 0.79727006, y: 0.6152, z: 1}
   m_Children:
   - {fileID: 1711238535}
@@ -930,7 +930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1711238535}
-  - component: {fileID: 1711238536}
+  - component: {fileID: 1711238537}
   m_Layer: 10
   m_Name: Hurtbox
   m_TagString: Untagged
@@ -952,24 +952,32 @@ Transform:
   m_Father: {fileID: 1528380753}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1711238536
-MonoBehaviour:
+--- !u!61 &1711238537
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711238534}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c999838105feaf429919e7dca7e1bd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collider: {fileID: 0}
-  boxSize: {x: 2.63, y: 1.69, z: 0}
-  rotation: 0
-  inactiveColor: {r: 0.8679245, g: 0.12691349, b: 0.12691349, a: 0}
-  collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
-  collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.43, y: 5.54}
+  m_EdgeRadius: 0
 --- !u!1 &1747548752
 GameObject:
   m_ObjectHideFlags: 0
