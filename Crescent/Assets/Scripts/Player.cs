@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IHitboxResponder
 	
 	public Hitbox hitbox;
 	
-	private float timeBtwAttack;
+	private double timeBtwAttack;
 	public float startTimeBtwAttack;
 	public bool inAnimation;
 	public float strength;
@@ -24,17 +24,19 @@ public class Player : MonoBehaviour, IHitboxResponder
     {
         strength = 50;
 		filter.layerMask = whatIsEnemies;
-		hitbox = GetComponentInChildren<Hitbox>();
-		Debug.Log(hitbox);
+		
     }
 
     // Update is called once per frame
     void Update()
     {
 		//If can attack
-        if(timeBtwAttack <= 0 && !hitbox.isStateOpen()){
+        if(timeBtwAttack <= 0){
 			if(Input.GetKey(KeyCode.LeftShift)){
 				stab();
+			}
+			else if(Input.GetKey(KeyCode.LeftControl)){
+				swipe();
 			}
 		}
 		else
@@ -42,29 +44,48 @@ public class Player : MonoBehaviour, IHitboxResponder
 			timeBtwAttack -= Time.deltaTime;
 		}
 		
+		if(timeBtwAttack < 0)
+		{
+			hitbox?.stopCheckingCollision();
+			inAnimation = false;
+		}
 		
     }
 	  
 	  
 	void FixedUpdate(){
 		
-		if(hitbox.isStateOpen()){
+		if(inAnimation && hitbox.isStateOpen()){
 			hitbox.hitboxUpdate();
 		}
 	}
 	  
 	
 	public void stab(){
-		timeBtwAttack = startTimeBtwAttack;
+		Debug.Log(transform.Find("stabbox"));
+		hitbox = transform.Find("stabbox").GetComponent<Hitbox>();
+		
+		timeBtwAttack = .3;
 		hitbox.useResponder(this);
 		hitbox.startCheckingCollision();
-		hitbox.name = "stab";
+		hitbox.attackname = "stab";
 		inAnimation = true;
 		Debug.Log("stabbing!");
 	}
 	
+	public void swipe(){
+		hitbox = transform.Find("swipebox").GetComponent<Hitbox>();
+		timeBtwAttack = .5;
+		hitbox.useResponder(this);
+		hitbox.startCheckingCollision();
+		hitbox.attackname = "swipe";
+		inAnimation = true;
+		Debug.Log("swiping!");
+		
+	}
+	
+	
 	public void collisionedWith(Collider2D collider, int attackid){
-		Debug.Log("collided!");
 		collider.GetComponentInParent<Enemy>().TakeDamage(50, attackid);
 	}
 	

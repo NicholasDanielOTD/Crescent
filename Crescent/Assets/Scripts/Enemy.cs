@@ -16,8 +16,9 @@ public class Enemy : MonoBehaviour
 	
 	public void TakeDamage(float damage, int attackid)
 	{
-		if(!hitlist.Contains(attackid)){ hp -= damage; hitlist.Add(attackid); }
+		if(!hitlist.Contains(attackid)){ hp -= damage; hitlist.Add(attackid); 
 		Debug.Log("Took damage! Hp is now: " + hp);
+		}
 	}
 	
 	public void clearHitlist()
