@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	
+	private int dashcount = 0;
+	private float dashinterval = .2f;
+	
 	public float speed;
 	public float jumpForce;
 	private float moveInput;
@@ -52,6 +55,29 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.S) && rb.velocity.y < 0){
 			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y*1.6f);
 		}
+		
+		if(Input.GetKeyDown(KeyCode.A))
+		{
+			if(dashinterval > 0 && dashcount == 1)
+			{
+				Debug.Log("dashed");
+			}
+			else
+			{
+				dashcount = 1;
+				dashinterval = .2f;
+			}
+		}
+		
+		if(dashinterval > 0)
+		{
+			dashinterval -= Time.deltaTime;
+		}
+		else
+		{
+			dashcount = 0;
+		}
+		
     }
 	
 	void Flip()
