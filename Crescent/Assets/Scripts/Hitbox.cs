@@ -85,7 +85,7 @@ public class Hitbox : MonoBehaviour
 	}
 	
 	public bool isStateOpen(){
-		return _state == ColliderState.Open;
+		return _state == ColliderState.Open || _state == ColliderState.Colliding;
 	}
 	
 
