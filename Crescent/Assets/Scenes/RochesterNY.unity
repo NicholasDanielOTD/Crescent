@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10842245}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2, y: 0, z: 0}
+  m_LocalPosition: {x: -5.86, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1528380753}
@@ -172,6 +172,7 @@ MonoBehaviour:
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  hitDelay: 0
 --- !u!1 &360008372
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360008372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.26, y: 0.42, z: 0}
+  m_LocalPosition: {x: 2.72, y: 0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1201123147}
@@ -224,6 +225,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.8396226, g: 0.122774996, b: 0.122774996, a: 0}
   collisionOpenColor: {r: 0.2807772, g: 0.990566, b: 0.2476415, a: 0}
   collidingColor: {r: 0.16237983, g: 0.36339107, b: 0.8396226, a: 0}
+  hitDelay: 0
 --- !u!1 &493300065
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +839,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459177217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.27, y: -0.76, z: 0}
+  m_LocalPosition: {x: 3.31, y: -0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1201123147}
@@ -864,6 +866,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.8396226, g: 0.099012084, b: 0.099012084, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  hitDelay: 0
 --- !u!1 &1528380749
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +902,7 @@ MonoBehaviour:
   hitbox: {fileID: 0}
   hp: 100
   strength: 50
-  attackRadius: 3
+  attackRadius: 4.82
   speed: -2.3
   rb: {fileID: 0}
   detectionRadius: 23.61
@@ -909,7 +912,8 @@ MonoBehaviour:
     m_Bits: 256
   dead: 0
   inAnimation: 0
-  timeBtwAttack: 0
+  startTimeBtwAttack: 3
+  timeBtwAttack: 5
 --- !u!212 &1528380752
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1047,7 +1051,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711238534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.57, y: 0, z: 0}
+  m_LocalPosition: {x: 0.77, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1528380753}
@@ -1077,7 +1081,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.43, y: 5.54}
+  m_Size: {x: 5.98, y: 5.54}
   m_EdgeRadius: 0
 --- !u!1 &1747548752
 GameObject:
@@ -1178,5 +1182,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.66, y: 2.53}
+  m_Size: {x: 1.41, y: 1.71}
   m_EdgeRadius: 0
