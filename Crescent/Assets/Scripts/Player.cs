@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IHitboxResponder
 	private Dictionary<string, int> attackdict;
 	public LayerMask whatIsEnemies;
 	public List<int> hitlist;
-	
+	private bool blocking;
 	
     // Start is called before the first frame update
     void Start()
@@ -35,13 +35,13 @@ public class Player : MonoBehaviour, IHitboxResponder
 		if(hp <= 0 && !dead){
 			Death();
 		}
-
+		
 		//If can attack, allow attack inputs
         if(timeBtwAttack <= 0 && !inAnimation){
-			if(Input.GetKey(KeyCode.LeftShift)){
+			if(Input.GetKeyDown(KeyCode.LeftAlt)){
 				stab();
 			}
-			else if(Input.GetKey(KeyCode.LeftControl)){
+			else if(Input.GetKeyDown(KeyCode.LeftControl)){
 				swipe();
 			}
 		}
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour, IHitboxResponder
 	public void TakeDamage(float damage, int attackid)
 	{
 		//Verify this attack has not already hit the enemy, if not take the damage and add the attackid.
-		if(!hitlist.Contains(attackid)){ hp -= damage; hitlist.Add(attackid); 
+		if(!hitlist.Contains(attackid) && !blocking){hp -= damage; hitlist.Add(attackid); 
 		Debug.Log("Took damage! Hp is now: " + hp);
 		}
 	}

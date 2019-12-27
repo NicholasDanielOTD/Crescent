@@ -13,6 +13,7 @@ public class AutowalkerController : Enemy, IHitboxResponder
 		//Establish the attack by name and their damage
 		attackdict = new Dictionary<string, int>();
 		attackdict.Add("swing",50);
+		attackdict.Add("gpound",75);
 		//Get the rigidbody and set a velocity
         rb = GetComponent<Rigidbody2D>();
 		rb.velocity = new Vector2(speed, rb.velocity.y);
@@ -35,8 +36,7 @@ public class AutowalkerController : Enemy, IHitboxResponder
 		//Check if within attack range, then attack
 		if(canAttack())
 		{
-			swingAttack();
-			timeBtwAttack = startTimeBtwAttack;
+			gPound();
 		}
 		//If can't attack because currently attacking or not in range, if within walking range of player, walk, if currently attacking decrease time
 		else if(detectPlayer()){
@@ -64,6 +64,21 @@ public class AutowalkerController : Enemy, IHitboxResponder
 		inAnimation = true;
 		Debug.Log("swingin!");
 	}
+	
+	public void gPound(){
+		hitbox = transform.Find("gp").GetComponent<Hitbox>();
+		timeBtwAttack = 3;
+		hitbox.useResponder(this);
+		hitbox.startCheckingCollision();
+		hitbox.attackname = "gpound";
+		inAnimation = true;
+		Debug.Log("poundin!");
+		hitbox.move(new Vector2(-3.5f, 0), timeBtwAttack*50);
+		
+		
+	}
+	
+	
 	
 	public override void Death()
 	{

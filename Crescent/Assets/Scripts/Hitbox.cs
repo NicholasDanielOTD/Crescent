@@ -24,6 +24,12 @@ public class Hitbox : MonoBehaviour
 	public Color collisionOpenColor;
 	public Color collidingColor;
 	public double hitDelay;
+	public Vector3 originalPosition;
+	public Vector3 originalDistance;
+	public bool isMoving = false;
+	public Vector2 _end;
+	public double _rate;
+	
 	
 	//A state for describing what our collider is doing at the moment
 	private ColliderState _state;
@@ -91,7 +97,22 @@ public class Hitbox : MonoBehaviour
 		return _state == ColliderState.Open || _state == ColliderState.Colliding;
 	}
 	
+	public void move(Vector2 end, double rate)
+	{
+		originalDistance = transform.position - transform.parent.position;
+		originalPosition = transform.position;
+		isMoving = true;
+		_rate = rate;
+		_end = end;
+		
+	}
 
+	public void cancelAttack()
+	{
+		isMoving = false;
+		stopCheckingCollision();
+	}
+	
     // Update is called once per frame
     public void hitboxUpdate()
     {
@@ -109,6 +130,19 @@ public class Hitbox : MonoBehaviour
 			
 		}
 		
+		if(isMoving)
+		{
+			Vector3 pos = new Vector3((float)(transform.position.x+ _end.x/_rate),(float)(transform.position.y + _end.y/_rate),(transform.position.z));
+			transform.position = pos;
+			
+//			transform.position.x += Mathf.Abs(transform.position.x -  _end.x)/_rate;
+//			transform.position.y += Mathf.Abs(transform.position.y -  _end.y)/_rate;
+			if(Mathf.Abs(transform.position.x -  (originalPosition.x + _end.x)) < .3 && Mathf.Abs(transform.position.y - (originalPosition.y + _end.y)) < .3)
+			{
+				isMoving = false;
+				transform.position = transform.parent.position + originalDistance;
+			}
+		}
 		
 		//Set the state to colliding if colliding else, se it to open
 		_state = colliders.Length > 0 ? ColliderState.Colliding : ColliderState.Open;
