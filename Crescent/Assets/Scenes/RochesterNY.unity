@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 10842246}
   - component: {fileID: 10842247}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: swingbox
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -173,6 +173,11 @@ MonoBehaviour:
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
   hitDelay: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalDistance: {x: 0, y: 0, z: 0}
+  isMoving: 0
+  _end: {x: 0, y: 0}
+  _rate: 0
 --- !u!1 &360008372
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,15 +222,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackname: 
-  boxSize: {x: 3.54, y: 0.47, z: 0}
+  boxSize: {x: 3.41, y: 0.46, z: 0}
   rotation: 0
   hurtboxMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 4096
   inactiveColor: {r: 0.8396226, g: 0.122774996, b: 0.122774996, a: 0}
   collisionOpenColor: {r: 0.2807772, g: 0.990566, b: 0.2476415, a: 0}
   collidingColor: {r: 0.16237983, g: 0.36339107, b: 0.8396226, a: 0}
   hitDelay: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalDistance: {x: 0, y: 0, z: 0}
+  isMoving: 0
+  _end: {x: 0, y: 0}
+  _rate: 0
 --- !u!1 &493300065
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459177218}
   - component: {fileID: 1459177219}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: swipebox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -862,11 +872,16 @@ MonoBehaviour:
   rotation: 0
   hurtboxMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 4096
   inactiveColor: {r: 0.8396226, g: 0.099012084, b: 0.099012084, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
   hitDelay: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalDistance: {x: 0, y: 0, z: 0}
+  isMoving: 0
+  _end: {x: 0, y: 0}
+  _rate: 0
 --- !u!1 &1528380749
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,7 +917,7 @@ MonoBehaviour:
   hitbox: {fileID: 0}
   hp: 100
   strength: 50
-  attackRadius: 4.82
+  attackRadius: 6.04
   speed: -2.3
   rb: {fileID: 0}
   detectionRadius: 23.61
@@ -971,11 +986,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528380749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.92, y: 0.83, z: -2.25795}
+  m_LocalPosition: {x: 7.27, y: 0.34, z: -2.25795}
   m_LocalScale: {x: 0.79727006, y: 0.6152, z: 1}
   m_Children:
   - {fileID: 1711238535}
   - {fileID: 10842246}
+  - {fileID: 1534364881}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1026,6 +1042,64 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1534364880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1534364881}
+  - component: {fileID: 1534364882}
+  m_Layer: 13
+  m_Name: gp
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1534364881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534364880}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.93, y: -1.99, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1528380753}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1534364882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534364880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a483e0bff1e0132458a81ea46705bb5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackname: 
+  boxSize: {x: 1.2, y: 0.67, z: 0}
+  rotation: 0
+  hurtboxMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  inactiveColor: {r: 0, g: 0, b: 0, a: 0}
+  collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
+  collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  hitDelay: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalDistance: {x: 0, y: 0, z: 0}
+  isMoving: 0
+  _end: {x: 0, y: 0}
+  _rate: 0
 --- !u!1 &1711238534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,7 +1110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1711238535}
   - component: {fileID: 1711238537}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -1051,7 +1125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711238534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.77, y: 0, z: 0}
+  m_LocalPosition: {x: -0.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1528380753}
@@ -1081,7 +1155,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.98, y: 5.54}
+  m_Size: {x: 5.65, y: 5.54}
   m_EdgeRadius: 0
 --- !u!1 &1747548752
 GameObject:
@@ -1182,5 +1256,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.41, y: 1.71}
+  m_Size: {x: 2.32, y: 1.71}
   m_EdgeRadius: 0

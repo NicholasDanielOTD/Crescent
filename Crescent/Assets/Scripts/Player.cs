@@ -38,7 +38,7 @@ public class Player : MonoBehaviour, IHitboxResponder
 		
 		//If can attack, allow attack inputs
         if(timeBtwAttack <= 0 && !inAnimation){
-			if(Input.GetKeyDown(KeyCode.LeftAlt)){
+			if(Input.GetKeyDown(KeyCode.Q)){
 				stab();
 			}
 			else if(Input.GetKeyDown(KeyCode.LeftControl)){

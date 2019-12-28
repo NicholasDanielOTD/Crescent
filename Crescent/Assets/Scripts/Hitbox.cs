@@ -29,10 +29,21 @@ public class Hitbox : MonoBehaviour
 	public bool isMoving = false;
 	public Vector2 _end;
 	public double _rate;
+	private Transform parentObj;
 	
 	
 	//A state for describing what our collider is doing at the moment
 	private ColliderState _state;
+	
+	void Start()
+	{
+		inactiveColor = new Color(0,0,255,.5f);
+		collisionOpenColor = new Color(255,255,0,.5f);
+		collidingColor = new Color(255,0,0,.5f);
+
+	
+	}
+	
 	
 	//Adds a ColliderState type with several possible states
 	public enum ColliderState{
@@ -49,33 +60,31 @@ public class Hitbox : MonoBehaviour
 	
 	//Makes the hitbox in the Unity screen
 	void OnDrawGizmos(){
-		Gizmos.color = Color.yellow;
+		Gizmos.color = CheckGizmoColor();
 		Gizmos.DrawCube(transform.position, new Vector3(boxSize.x*2, boxSize.y*2, boxSize.z*2));
 	}
 	
 	
 	//Sets the hitbox color based on state, currently does not work because gizmos aren't properly configured
-	private void CheckGizmoColor()
+	private Color CheckGizmoColor()
 	{
 		switch(_state) {
 
 		case ColliderState.Closed:
 
-			Gizmos.color = inactiveColor;
-
-			break;
+			return inactiveColor;
 
 		case ColliderState.Open:
 
-			Gizmos.color = collisionOpenColor;
+			return  collisionOpenColor;
 
-			break;
 	
 		case ColliderState.Colliding:
 
-			Gizmos.color = collidingColor;
-
-			break;
+			return  collidingColor;
+			
+		default:	
+			return Color.yellow;
 		}
 	}
 
@@ -102,6 +111,8 @@ public class Hitbox : MonoBehaviour
 		originalDistance = transform.position - transform.parent.position;
 		originalPosition = transform.position;
 		isMoving = true;
+		parentObj = transform.parent;
+		transform.parent = null;
 		_rate = rate;
 		_end = end;
 		
@@ -113,7 +124,6 @@ public class Hitbox : MonoBehaviour
 		stopCheckingCollision();
 	}
 	
-    // Update is called once per frame
     public void hitboxUpdate()
     {
 		//Debug.Log("Updating");
@@ -135,12 +145,12 @@ public class Hitbox : MonoBehaviour
 			Vector3 pos = new Vector3((float)(transform.position.x+ _end.x/_rate),(float)(transform.position.y + _end.y/_rate),(transform.position.z));
 			transform.position = pos;
 			
-//			transform.position.x += Mathf.Abs(transform.position.x -  _end.x)/_rate;
-//			transform.position.y += Mathf.Abs(transform.position.y -  _end.y)/_rate;
 			if(Mathf.Abs(transform.position.x -  (originalPosition.x + _end.x)) < .3 && Mathf.Abs(transform.position.y - (originalPosition.y + _end.y)) < .3)
 			{
 				isMoving = false;
+				transform.parent = parentObj;
 				transform.position = transform.parent.position + originalDistance;
+				
 			}
 		}
 		
