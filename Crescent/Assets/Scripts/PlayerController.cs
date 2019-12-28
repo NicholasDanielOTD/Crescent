@@ -4,6 +4,7 @@ using UnityEngine;
 
 //This file is for the physical controlling (movement and stuff) of the player character
 
+//this is here for legacy purposes
 
 public class PlayerController : MonoBehaviour
 {

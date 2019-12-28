@@ -172,6 +172,7 @@ MonoBehaviour:
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  delayColor: {r: 0, g: 0, b: 0, a: 0}
   hitDelay: 0
   originalPosition: {x: 0, y: 0, z: 0}
   originalDistance: {x: 0, y: 0, z: 0}
@@ -230,6 +231,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.8396226, g: 0.122774996, b: 0.122774996, a: 0}
   collisionOpenColor: {r: 0.2807772, g: 0.990566, b: 0.2476415, a: 0}
   collidingColor: {r: 0.16237983, g: 0.36339107, b: 0.8396226, a: 0}
+  delayColor: {r: 0, g: 0, b: 0, a: 0}
   hitDelay: 0
   originalPosition: {x: 0, y: 0, z: 0}
   originalDistance: {x: 0, y: 0, z: 0}
@@ -659,10 +661,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1201123147}
   - component: {fileID: 1201123146}
-  - component: {fileID: 1201123145}
   - component: {fileID: 1201123144}
   - component: {fileID: 1201123143}
-  - component: {fileID: 1201123148}
+  - component: {fileID: 1201123145}
   m_Layer: 8
   m_Name: Goodguy
   m_TagString: Untagged
@@ -716,7 +717,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1201123145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,16 +727,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1201123142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3374005941fe1f94b86b6a8e862d20f5, type: 3}
+  m_Script: {fileID: 11500000, guid: e91eba412c7a26d4aac2fbd284ab675b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 15
+  jumpForce: 5
   groundCheck: {fileID: 493300066}
-  checkRadius: 0.3
+  checkRadius: 5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 33554432
+  hitbox: {fileID: 0}
+  hp: 100
+  inAnimation: 0
+  strength: 0
+  whatIsEnemies:
+    serializedVersion: 2
+    m_Bits: 512
+  hitlist: 
 --- !u!212 &1201123146
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -803,27 +812,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1201123148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201123142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91eba412c7a26d4aac2fbd284ab675b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitbox: {fileID: 0}
-  hp: 100
-  startTimeBtwAttack: 0.5
-  inAnimation: 0
-  strength: 50
-  whatIsEnemies:
-    serializedVersion: 2
-    m_Bits: 512
-  hitlist: 
 --- !u!1 &1459177217
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,9 +861,10 @@ MonoBehaviour:
   hurtboxMask:
     serializedVersion: 2
     m_Bits: 4096
-  inactiveColor: {r: 0.8396226, g: 0.099012084, b: 0.099012084, a: 0}
-  collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
-  collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  inactiveColor: {r: 1, g: 1, b: 1, a: 0}
+  collisionOpenColor: {r: 0.60784316, g: 0.60784316, b: 0.60784316, a: 0}
+  collidingColor: {r: 0.20478818, g: 0.735849, b: 0.2818596, a: 0}
+  delayColor: {r: 0, g: 0, b: 0, a: 0}
   hitDelay: 0
   originalPosition: {x: 0, y: 0, z: 0}
   originalDistance: {x: 0, y: 0, z: 0}
@@ -1041,7 +1030,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1534364880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,9 +1080,10 @@ MonoBehaviour:
   hurtboxMask:
     serializedVersion: 2
     m_Bits: 1024
-  inactiveColor: {r: 0, g: 0, b: 0, a: 0}
+  inactiveColor: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  delayColor: {r: 0, g: 0, b: 0, a: 0}
   hitDelay: 0
   originalPosition: {x: 0, y: 0, z: 0}
   originalDistance: {x: 0, y: 0, z: 0}

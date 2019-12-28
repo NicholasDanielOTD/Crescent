@@ -23,6 +23,7 @@ public class Hitbox : MonoBehaviour
 	public Color inactiveColor;
 	public Color collisionOpenColor;
 	public Color collidingColor;
+	public Color delayColor;
 	public double hitDelay;
 	public Vector3 originalPosition;
 	public Vector3 originalDistance;
@@ -37,7 +38,8 @@ public class Hitbox : MonoBehaviour
 	
 	void Start()
 	{
-		inactiveColor = new Color(0,0,255,.5f);
+		inactiveColor = new Color(0,0,0,0);
+		delayColor = new Color(0,0,255,.5f);
 		collisionOpenColor = new Color(255,255,0,.5f);
 		collidingColor = new Color(255,0,0,.5f);
 
@@ -49,7 +51,8 @@ public class Hitbox : MonoBehaviour
 	public enum ColliderState{
 		Closed,
 		Open,
-		Colliding
+		Colliding,
+		inDelay
 		}
 		
 	//Gives a callable to set local responder of Hitbox
@@ -73,6 +76,10 @@ public class Hitbox : MonoBehaviour
 		case ColliderState.Closed:
 
 			return inactiveColor;
+			
+		case ColliderState.inDelay:
+			
+			return delayColor;
 
 		case ColliderState.Open:
 
@@ -103,7 +110,7 @@ public class Hitbox : MonoBehaviour
 	
 	//a callable check to see if colliding is okay
 	public bool isStateOpen(){
-		return _state == ColliderState.Open || _state == ColliderState.Colliding;
+		return _state == ColliderState.Open || _state == ColliderState.Colliding || _state == ColliderState.inDelay;
 	}
 	
 	public void move(Vector2 end, double rate)
@@ -117,8 +124,14 @@ public class Hitbox : MonoBehaviour
 		_end = end;
 		
 	}
+	
+	public void startWithDelay(double d)
+	{
+		hitDelay = d;
+		_state = ColliderState.inDelay;
+	}
 
-	public void cancelAttack()
+	public void endAttack()
 	{
 		isMoving = false;
 		stopCheckingCollision();
@@ -128,7 +141,13 @@ public class Hitbox : MonoBehaviour
     {
 		//Debug.Log("Updating");
 		//If no hitbox out, do nothing
-        if (_state == ColliderState.Closed || hitDelay > 0) { hitDelay -= Time.deltaTime; return;}
+        if (_state == ColliderState.Closed) { return;}
+		if (_state == ColliderState.inDelay) { 
+			hitDelay -= Time.deltaTime; 
+			if(hitDelay <= 0) { startCheckingCollision(); }
+			return;
+			}
+	
 		
 		//Get list of colliding entities
 		Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position,new Vector2 (boxSize.x,boxSize.y),0,hurtboxMask);
